@@ -1,0 +1,55 @@
+<!-- dashboard.html -->
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tableau de bord E-commerce</title>
+    <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+</head>
+<body>
+    <h1>Tableau de bord E-commerce</h1>
+
+    <div class="statistiques">
+        <p><strong>Total des ventes :</strong> {{ total_ventes }}</p>
+        <p><strong>Total des revenus :</strong> {{ total_revenus }} €</p>
+        <p><strong>Commandes en attente :</strong> {{ commandes_en_attente }}</p>
+    </div>
+
+    <h2>Produits les plus populaires</h2>
+    <ul>
+        {% for produit in produits_populaires %}
+        <li>{{ produit.nom }} - {{ produit.ventes }} ventes</li>
+        {% endfor %}
+    </ul>
+   
+<h2>Ventes mensuelles</h2>
+<canvas id="ventesChart"></canvas>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    var ctx = document.getElementById('ventesChart').getContext('2d');
+    var ventesChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+            datasets: [{
+                label: 'Ventes mensuelles',
+                data: [12, 19, 3, 5, 2, 3, 9, 14, 6, 7, 12, 10],
+                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+</script>
+
+</body>
+</html>

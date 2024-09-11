@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Validation de Commande</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            width: 400px;
+        }
+        .logo {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        .logo img {
+            max-width: 150px;
+        }
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #555;
+        }
+        .form-group select, .form-group input {
+            width: 100%;
+            padding: 10px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            font-size: 16px;
+        }
+        .form-group input[type="radio"] {
+            width: auto;
+            margin-right: 10px;
+        }
+        .payment-options {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .payment-options label {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            margin-right: 15px;
+        }
+        .payment-options img {
+            margin-right: 8px;
+            max-width: 24px; /* Taille réduite de l'image */
+        }
+        .btn {
+            background-color: #28a745;
+            color: white;
+            padding: 12px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 16px;
+        }
+        .btn:hover {
+            background-color: #218838;
+        }
+        .summary {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #f9f9f9;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">
+            <img src="votre_logo.png" alt="Logo">
+        </div>
+        <h2>Validation de Commande</h2>
+        <form id="orderForm">
+            <div class="form-group">
+                <label for="address">Adresse complète :</label>
+                <input type="text" id="address" name="address" placeholder="Entrez votre adresse complète" required>
+            </div>
+            <div class="form-group">
+                <label for="phone">Numéro de téléphone :</label>
+                <input type="tel" id="phone" name="phone" placeholder="Entrez votre numéro de téléphone" pattern="[0-9]{10}" required>
+            </div>
+            <div class="form-group">
+                <label for="zone">Choisissez la zone de livraison :</label>
+                <select id="zone" name="zone" required>
+                    <option value="">Sélectionnez une zone</option>
+                    <option value="cocody" data-price="1000">Cocody - 1000 FCFA</option>
+                    <option value="yopougon" data-price="1200">Yopougon - 1200 FCFA</option>
+                    <option value="abobo" data-price="800">Abobo - 800 FCFA</option>
+                    <option value="treichville" data-price="900">Treichville - 900 FCFA</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="payment">Moyen de paiement :</label>
+                <div class="payment-options">
+                    <label for="mtn">
+                        <img src="C:/Users/DELL/OneDrive/Documents/mon_projet\MTN-Côte-dIvoire.webp" alt="MTN Money">
+                        <input type="radio" id="mtn" name="payment" value="MTN Money" required>
+                        MTN Money
+                    </label>
+                </div>
+                <div class="payment-options">
+                    <label for="orange">
+                        <img src="C:/Users/DELL/OneDrive/Documents/mon_projet/1x/6Fichier 1.png" alt="Orange Money">
+                        <input type="radio" id="orange" name="payment" value="Orange Money" required>
+                        Orange Money
+                    </label>
+                </div>
+                <div class="payment-options">
+                    <label for="wave">
+                        <img src="C:/Users/DELL/OneDrive/Documents/mon_projet/0PZcR8OO_400x400.jpg" alt="Wave">
+                        <input type="radio" id="wave" name="payment" value="Wave" required>
+                        Wave
+                    </label>
+                </div>
+                <div class="payment-options">
+                    <label for="djamo">
+                        <img src="C:/Users/DELL/OneDrive/Documents/mon_projet/djamologo.jpg" alt="Djamo">
+                        <input type="radio" id="djamo" name="payment" value="Djamo" required>
+                        Djamo
+                    </label>
+                </div>
+            </div>
+            <div class="summary">
+                <p>Prix des produits : <span id="cartPrice">0 FCFA</span></p>
+                <p>Prix de la livraison : <span id="deliveryPrice">0 FCFA</span></p>
+                <p>Total : <span id="totalPrice">0 FCFA</span></p>
+            </div>
+            <button type="submit" class="btn">Finaliser la commande</button>
+        </form>
+    </div>
+
+    <script>
+        const zoneSelect = document.getElementById('zone');
+        const deliveryPrice = document.getElementById('deliveryPrice');
+        const cartPrice = document.getElementById('cartPrice');
+        const totalPrice = document.getElementById('totalPrice');
+        const orderForm = document.getElementById('orderForm');
+
+        let cartTotal = parseInt(localStorage.getItem('cartTotal')) || 0;
+        cartPrice.innerText = cartTotal + ' FCFA';
+
+        function updateTotal() {
+            const selectedOption = zoneSelect.options[zoneSelect.selectedIndex];
+            const deliveryCost = parseInt(selectedOption.getAttribute('data-price')) || 0;
+            deliveryPrice.innerText = deliveryCost + ' FCFA';
+            const total = cartTotal + deliveryCost;
+            totalPrice.innerText = total + ' FCFA';
+        }
+
+        zoneSelect.addEventListener('change', updateTotal);
+
+        orderForm.addEventListener('submit', function(event) {
+            event.preventDefault(); 
+            const address = document.getElementById('address').value;
+            const phone = document.getElementById('phone').value;
+            const zone = zoneSelect.value;
+            const payment = document.querySelector('input[name="payment"]:checked');
+
+            if (!address || !phone || !zone || !payment) {
+                alert("Veuillez remplir tous les champs avant de finaliser la commande.");
+                return;
+            }
+
+            alert(`Commande validée!\nZone: ${zoneSelect.options[zoneSelect.selectedIndex].text}\nMoyen de paiement: ${payment.value}\nAdresse: ${address}\nTéléphone: ${phone}`);
+
+            let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+            let finalOrder = JSON.parse(localStorage.getItem('finalOrder')) || [];
+            finalOrder.push({
+                items: cartItems,
+                address: address,
+                phone: phone,
+                zone: zoneSelect.options[zoneSelect.selectedIndex].text,
+                payment: payment.value,
+                total: cartTotal + parseInt(zoneSelect.options[zoneSelect.selectedIndex].getAttribute('data-price'))
+            });
+            localStorage.setItem('finalOrder', JSON.stringify(finalOrder));
+
+            localStorage.removeItem('cartItems');
+            localStorage.removeItem('cartTotal');
+
+            window.location.href = 'historique.html';
+        });
+
+        updateTotal();
+    </script>
+</body>
+</html>

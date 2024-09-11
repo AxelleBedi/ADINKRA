@@ -1,0 +1,229 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MON PANIER</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 50px auto;
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+      position: relative;
+    }
+
+    .header-buttons {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      display: flex;
+      gap: 10px;
+    }
+
+    .header-buttons .btn {
+      font-size: 14px;
+    }
+
+    h2 {
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+
+    .cart-item {
+      display: flex;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+
+    .cart-item img {
+      width: 80px;
+      height: 80px;
+      object-fit: cover;
+      margin-right: 15px;
+      border-radius: 5px;
+    }
+
+    .cart-item-details {
+      flex-grow: 1;
+    }
+
+    .quantity-input {
+      width: 60px;
+      padding: 5px;
+      text-align: center;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+      margin-right: 10px;
+    }
+
+    .btn-update,
+    .btn-remove,
+    .btn-checkout {
+      padding: 5px 10px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 14px;
+      margin-right: 5px;
+    }
+
+    .btn-update {
+      background-color: #6c757d;
+      color: white;
+    }
+
+    .btn-update:hover {
+      background-color: #5a6268;
+    }
+
+    .btn-remove {
+      background-color: #dc3545;
+      color: white;
+    }
+
+    .btn-remove:hover {
+      background-color: #c82333;
+    }
+
+    .btn-checkout {
+      background-color: #28a745;
+      color: white;
+      margin-top: 20px;
+      display: block;
+      width: 100%;
+    }
+
+    .btn-checkout:hover {
+      background-color: #218838;
+    }
+
+    .total-amount {
+      font-size: 20px;
+      font-weight: bold;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="header-buttons">
+      <button id="continue-shopping" class="btn btn-primary"><a href="{% url 'page_de_catalogue' %}" style="text-decoration: none;color:white;">Continuer mes achats</a></button>
+    </div>
+    <h2><i class="fas fa-shopping-cart"></i> Mon PANIER</h2>
+    <div id="cart-items"></div>
+    <div id="cart-total"></div>
+    <button id="clear-cart" class="btn btn-danger">Supprimer</button>
+    <!-- Supposons que vous passez l'état de connexion de l'utilisateur via un attribut data-authenticated -->
+<button id="checkout" class="btn btn-checkout" >
+  <a href="{% url 'paiement:commande' %}" style="text-decoration: none;color:white;">Valider</a>
+</button>
+
+<!-- <script>
+  document.getElementById('checkout').addEventListener('click', function(event) {
+      var isAuthenticated = this.getAttribute('data-authenticated') === 'true';
+
+      if (!isAuthenticated) {
+          event.preventDefault(); // Empêche la redirection vers la page suivante
+          alert("Veuillez vous authentifier avant de finaliser votre commande.");
+          window.location.href = 'authentification/'; // Redirige l'utilisateur vers la page de connexion
+      } else {
+          // Si l'utilisateur est authentifié, permettre la redirection
+          window.location.href = 'finaliser_commande.html';
+      }
+  });
+</script> -->
+
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const cartItemsContainer = document.getElementById('cart-items');
+      const cartTotalContainer = document.getElementById('cart-total');
+      const clearCartButton = document.getElementById('clear-cart');
+      const checkoutButton = document.getElementById('checkout');
+      const continueShoppingButton = document.getElementById('continue-shopping');
+
+      let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+
+      function updateCart() {
+        if (cartItems.length === 0) {
+          cartItemsContainer.innerHTML = '<p>Your cart is empty.</p>';
+          cartTotalContainer.innerHTML = '';
+          localStorage.removeItem('cartTotal'); // Remove the cart total if the cart is empty
+          checkoutButton.disabled = true; // Disable the checkout button if the cart is empty
+          return;
+        }
+
+        cartItemsContainer.innerHTML = cartItems.map((item, index) => `
+          <div class="cart-item">
+            <img src="${item.image}" alt="${item.name}">
+            <div class="cart-item-details">
+              <h4>${item.name}</h4>
+              <p>Price: ${item.price} FCFA</p>
+              <input type="number" min="1" class="quantity-input" value="${item.quantity}" data-index="${index}">
+              <button class="btn-update" data-index="${index}">Update</button>
+              <button class="btn-remove" data-index="${index}">Remove</button>
+            </div>
+          </div>
+          <hr>
+        `).join('');
+
+        const total = cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0);
+        cartTotalContainer.innerHTML = `<div class="total-amount">Total Bills: ${total} FCFA</div>`;
+
+        // Store the total in localStorage
+        localStorage.setItem('cartTotal', total);
+
+        // Enable the checkout button if the cart has items
+        checkoutButton.disabled = false;
+
+        document.querySelectorAll('.btn-update').forEach(button => {
+          button.addEventListener('click', function () {
+            const index = this.getAttribute('data-index');
+            const newQuantity = document.querySelector(`input[data-index="${index}"]`).value;
+            cartItems[index].quantity = parseInt(newQuantity);
+            localStorage.setItem('cartItems', JSON.stringify(cartItems));
+            updateCart();
+          });
+        });
+
+        document.querySelectorAll('.btn-remove').forEach(button => {
+          button.addEventListener('click', function () {
+            const index = this.getAttribute('data-index');
+            cartItems.splice(index, 1);
+            localStorage.setItem('cartItems', JSON.stringify(cartItems));
+            updateCart();
+          });
+        });
+      }
+
+      updateCart();
+
+      clearCartButton.addEventListener('click', function () {
+        localStorage.removeItem('cartItems');
+        localStorage.removeItem('cartTotal'); // Clear the total when the cart is cleared
+        location.reload();
+      });
+
+      continueShoppingButton.addEventListener('click', function () {
+        window.location.href = 'catalogue.html'; // Remplacez 'cathalogue.html' par l'URL de votre page d'accueil
+      });
+    });
+  </script>
+</body>
+
+</html>

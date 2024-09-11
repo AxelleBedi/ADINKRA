@@ -1,0 +1,137 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Historique des Commandes</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #140101;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 50px auto;
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    }
+
+    h2 {
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+
+    .order-item {
+      display: flex;
+      margin-bottom: 15px;
+    }
+
+    .order-item img {
+      width: 80px;
+      height: 80px;
+      object-fit: cover;
+      margin-right: 15px;
+      border-radius: 5px;
+    }
+
+    .order-item-details {
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .order-item-details p {
+      margin: 0;
+    }
+
+    .total-amount {
+      font-size: 20px;
+      font-weight: bold;
+      margin-top: 20px;
+    }
+
+    .btn-back {
+      background-color: #007bff;
+      color: white;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 4px;
+      text-decoration: none;
+      margin-top: 20px;
+      display: inline-block;
+    }
+
+    .btn-back:hover {
+      background-color: #0056b3;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2><i class="fas fa-check-circle"></i> Votre Historique de Commandes</h2>
+    <div id="order-items"></div>
+    <div id="order-total"></div>
+    <div>
+      <a href="{% url 'page_de_catalogue' %}" class="btn-back">Retour au Catalogue</a>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const orderItemsContainer = document.getElementById('order-items');
+        const orderTotalContainer = document.getElementById('order-total');
+      
+        // Simulation des données de commandes, récupérées du backend via Django
+        const finalOrder = JSON.parse('{{ orders|escapejs }}');
+
+        if (finalOrder.length === 0) {
+            orderItemsContainer.innerHTML = '<p>Aucune commande passée.</p>';
+            orderTotalContainer.innerHTML = '';
+            return;
+        }
+
+        function renderOrders() {
+            orderItemsContainer.innerHTML = finalOrder.map(order => `
+                <div class="order">
+                    <h3>Commande du ${new Date(order.date_ordered).toLocaleDateString()}</h3>
+                    ${order.items.map(item => `
+                        <div class="order-item">
+                            <img src="${item.image}" alt="${item.name}">
+                            <div class="order-item-details">
+                                <h4>${item.name}</h4>
+                                <p>Quantité: ${item.quantity}</p>
+                                <p>Prix unitaire: ${item.price} FCFA</p>
+                                <p>Total: ${item.price * item.quantity} FCFA</p>
+                            </div>
+                        </div>
+                    `).join('')}
+                    <div class="order-details container-fluid">
+                        <p>Adresse: ${order.address}</p>
+                        <p>Téléphone: ${order.phone}</p>
+                        <p>Zone: ${order.zone}</p>
+                        <p>Moyen de paiement: ${order.payment}</p>
+                        <p>Total de la commande: ${order.total} FCFA</p>
+                    </div>
+                    <hr>
+                </div>
+            `).join('');
+
+            const grandTotal = finalOrder.reduce((acc, order) => acc + order.total, 0);
+            orderTotalContainer.innerHTML = `<div class="total-amount">Montant total de vos commandes: ${grandTotal} FCFA</div>`;
+        }
+
+        renderOrders();
+    });
+</script>
+  </script>
+</body>
+</html>

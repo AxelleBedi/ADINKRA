@@ -1,0 +1,31 @@
+from admin_tools.dashboard import modules, Dashboard # type: ignore
+
+class CustomIndexDashboard(Dashboard):
+    def init_with_context(self, context):
+        self.children.append(modules.AppList(
+            title='Application',
+            exclude=('auth.*',),
+        ))
+        self.children.append(modules.ModelList(
+            title='Gestion des Commandes',
+            models=('admin.Commande',),
+        ))
+        self.children.append(modules.ModelList(
+            title='Gestion des Produits',
+            models=('admin.Produit',),
+        ))
+        self.children.append(modules.LinkList(
+            title='Liens utiles',
+            children=[
+                {
+                    'title': 'Documentation Django',
+                    'url': 'https://docs.djangoproject.com/',
+                    'external': True,
+                },
+                {
+                    'title': 'Documentation Python',
+                    'url': 'https://docs.python.org/',
+                    'external': True,
+                },
+            ]
+        ))

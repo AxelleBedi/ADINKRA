@@ -1,0 +1,493 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>ADINKRA</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="{% static 'assets/img/favicon.png' %}" rel="icon">
+  <link href="{% static 'assets/img/apple-touch-icon.png' %}" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,700,700i|Poppins:300,400,500,700" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="{% static 'assets/vendor/aos/aos.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/boxicons/css/boxicons.min.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/glightbox/css/glightbox.min.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/swiper/swiper-bundle.min.css' %}" rel="stylesheet">
+  
+
+  <!-- Template Main CSS File -->
+  <link href="{% static 'assets/css/style.css' %}" rel="stylesheet">
+ 
+  
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+</head>
+
+<body>
+
+  <!-- ======= Header ======= -->
+  <header id="header" class="fixed-top d-flex align-items-center header-transparent">
+    <div class="container d-flex justify-content-between align-items-center">
+
+      <div id="logo">
+        <a href="index.html"><img src="{% static 'assets/img/logo.png' %}" alt=""></a>
+        <!-- Uncomment below if you prefer to use a text logo -->
+        <!--<h1><a href="index.html">Regna</a></h1>-->
+      </div>
+
+      <nav id="navbar" class="navbar">
+        <ul>
+          <li><a class="nav-link scrollto active" href="#hero">ACCUEIL</a></li>
+          <li><a class="nav-link scrollto" href="#about">A PROPOS </a></li>
+          <li class="dropdown"><a href="catalogue/"><span>Boutique</span> <i class="bi bi-chevron-down"></i></a>
+            <ul>
+              <li class="dropdown"><a href="#"><span>Bagues</span> <i class="bi bi-chevron-right"></i></a>
+              </li>
+              <li class="dropdown"><a href="#"><span>Colliers</span> <i class="bi bi-chevron-right"></i></a>
+                <li class="dropdown"><a href="#"><span>Colliers</span> <i class="bi bi-chevron-right"></i></a>
+              </li>
+            </ul>
+          </li>
+        </form>
+        <li><a class="nav-link scrollto" href="#team">Artisans</a></li>
+        <li><a class="nav-link scrollto" href="authentification/"><i class="fas fa-user"></i></a></li>
+        <li><a class="nav-link scrollto" href="authentification/deco/"><i class="fas fa-sign-out-alt"></i></a></li>
+        {% if user.is_superuser %}
+          <a class="nav-link scrollto" href="espace_admin/">Dashboard </a>
+          {% endif %}
+        <ul class="list-unstyled">
+          <li>
+              <a href="paiement/" class="btn position-relative" style="text-decoration: none;">
+                  <i class="bi bi-cart3" style="font-size: 1.5em; color: #333;"></i>
+                  <span id="cart-count" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-dark">
+                      0
+                  </span>
+              </a>
+          </li>
+      </ul>
+      
+        </ul>
+        <i class="bi bi-list mobile-nav-toggle"></i>
+      </nav><!-- .navbar -->
+    </div>
+  </header>
+<!-- End Header -->
+  <!-- ======= Hero Section ======= -->
+  <section id="hero">
+    <div class="hero-container" data-aos="zoom-in" data-aos-delay="60">
+      <h1>ADINKRA</h1>
+      <h2>spécialiste dans la vente de bijoux africain</h2>
+      <a href="catalogue/" class="btn-get-started">COMMENCER</a>
+    </div>
+  </section><!-- End Hero Section -->
+   <!-- ======= Portfolio Section ======= -->
+   <section id="portfolio" class="portfolio">
+    <div class="container" data-aos="fade-up">
+      <div class="section-header">
+        <h3 class="section-title">découvrez notre sélection de bijoux</h3>
+        <p class="section-description">Découvrez l'univers ADINKRA</p>
+      </div>
+      <div class="row portfolio-container" data-aos="fade-up" data-aos-delay="200">
+      <div class="col-lg-4 col-md-6 portfolio-item filter-Boucles">
+        <img src="{% static 'assets/img/portfolio/portfolio-1.jpg' %}" class="img-fluid" alt="">
+        <div class="portfolio-info">
+          <h4>"Fleur d'Or du Soleil"</h4>
+          <p>1 paire de boucles d'oreilles</p>
+          <h4>15000 FCFA</h4>
+          <a href="{% static 'assets/img/portfolio/portfolio-1.jpg' %}" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="1 paire de boucles d'oreilles en acier inoxydable à motif de fleur"><i class="bx bx-plus"></i></a>
+          <a href="portfolio-details.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
+          <div class="text-center">
+            <a id="add-to-cart-1" class="btn btn-outline-dark mt-auto add-to-cart" 
+               href="#" data-id="1" data-name="Fleur d'Or du Soleil" data-price="15000" data-image="assets/img/portfolio/portfolio-1.jpg">
+              Ajouter au panier
+            </a>
+          </div>
+        </div>
+      </div>
+      <!-- Add more portfolio items as needed -->
+      <!-- Example: -->
+      <div class="col-lg-4 col-md-6 portfolio-item filter-Bagues">
+        <img src="{% static 'assets/img/portfolio/portfolio-2.jpg' %}" class="img-fluid" alt="">
+        <div class="portfolio-info">
+          <h4> "Éclat Doré"</h4>
+          <p>Lot de 2 Bagues</p>
+          <h4>10000 FCFA</h4>
+          <a href="{% static 'assets/img/portfolio/portfolio-2.jpg' %}" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="1 paire de boucles d'oreilles en acier inoxydable à motif de fleur"><i class="bx bx-plus"></i></a>
+          <a href="portfolio-details.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
+          <div class="text-center">
+            <a id="add-to-cart-2" class="btn btn-outline-dark mt-auto add-to-cart" 
+               href="#" data-id="2" data-name="Fleur d'Or du Soleil" data-price="10000" data-image="assets/img/portfolio/portfolio-2.jpg">
+              Ajouter au panier
+            </a>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="col-lg-4 col-md-6 portfolio-item filter-colliers">
+        <img src="{% static 'assets/img/portfolio/portfolio-11.jpg' %}" class="img-fluid" alt="">
+        <div class="portfolio-info">
+          <h4>"DUAFE"</h4>
+          <p>1 chaîne avec pendentif Duafe</p>
+          <h4>12000FCFA</h4>
+          <a href="{% static 'assets/img/portfolio/portfolio-11.jpg' %}" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="1 paire de boucles d'oreilles en acier inoxydable à motif de fleur"><i class="bx bx-plus"></i></a>
+          <a href="portfolio-details.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
+          <div class="text-center">
+            <a id="add-to-cart-1" class="btn btn-outline-dark mt-auto add-to-cart" 
+               href="#" data-id="3" data-name="Fleur d'Or du Soleil" data-price="10000" data-image="assets/img/portfolio/portfolio-3.jpg">
+              Ajouter au panier
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-4 col-md-6 portfolio-item filter-Boucles">
+        <img src="{% static 'assets/img/portfolio/portfolio-4.jpg' %}" class="img-fluid" alt="">
+        <div class="portfolio-info">
+          <h4>"Kwetu "</h4>
+          <p>1 paire de boucles d'oreilles</p>
+          <h4>8000 FCFA</h4>
+          <a href="{% static 'assets/img/portfolio/portfolio-4.jpg' %}" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="1 paire de boucles d'oreilles en acier inoxydable à motif de fleur"><i class="bx bx-plus"></i></a>
+          <a href="portfolio-details.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
+          <div class="text-center">
+            <a id="add-to-cart-1" class="btn btn-outline-dark mt-auto add-to-cart" 
+               href="#" data-id="4" data-name="Fleur d'Or du Soleil" data-price="10000" data-image="assets/img/portfolio/portfolio-4.jpg">
+              Ajouter au panier
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-4 col-md-6 portfolio-item filter-Boucles">
+        <img src="{% static 'assets/img/portfolio/portfolio-5.jpg' %}" class="img-fluid" alt="">
+        <div class="portfolio-info">
+          <h4>"Safari"</h4>
+          <p>trio de boucles d'oreilles aux formes variées </p>
+          <h4>20000 FCFA</h4>
+          <a href="{% static 'assets/img/portfolio/portfolio-5.jpg' %}" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="1 paire de boucles d'oreilles en acier inoxydable à motif de fleur"><i class="bx bx-plus"></i></a>
+          <a href="portfolio-details.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
+          <div class="text-center">
+            <a id="add-to-cart-1" class="btn btn-outline-dark mt-auto add-to-cart" 
+               href="#" data-id="5" data-name="Fleur d'Or du Soleil" data-price="10000" data-image="assets/img/portfolio/portfolio-5.jpg">
+              Ajouter au panier
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-4 col-md-6 portfolio-item filter-Bracelets">
+        <img src="{% static 'assets/img/portfolio/portfolio-6.jpg' %}" class="img-fluid" alt="">
+        <div class="portfolio-info">
+          <h4>"Amani"</h4>
+          <p>1 basic en acier inoxydable</p>
+          <h4>15000 FCFA</h4>
+          <a href="{% static 'assets/img/portfolio/portfolio-6.jpg' %}" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="1 paire de boucles d'oreilles en acier inoxydable à motif de fleur"><i class="bx bx-plus"></i></a>
+          <a href="portfolio-details.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
+          <div class="text-center">
+            <a id="add-to-cart-1" class="btn btn-outline-dark mt-auto add-to-cart" 
+               href="#" data-id="6" data-name="Fleur d'Or du Soleil" data-price="10000" data-image="assets/img/portfolio/portfolio-6.jpg">
+              Ajouter au panier
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- End Portfolio Section -->
+
+     <!-- ======= About Section ======= -->
+ <section id="about">
+  <div class="container" data-aos="fade-up">
+    <div class="row about-container">
+
+      <div class="col-lg-6 content order-lg-1 order-2">
+        <h2 class="title">A propos de nous</h2>
+        <p>
+          Bienvenue chez ADINKRA, votre destination en ligne privilégiée pour découvrir et acquérir des bijoux africains 
+          uniques et raffinés.
+           Notre mission est de célébrer et de partager la richesse de la culture africaine à travers des pièces de joaillerie
+           artisanales qui allient tradition et modernité.Nous croyons que chaque bijou a une histoire à raconter. C'est pourquoi 
+           nous sélectionnons avec soin des créations qui reflètent l'héritage, les traditions et les savoir-faire ancestraux des différentes régions d'Afrique.
+           En mettant en lumière ces trésors culturels, nous visons à offrir à nos clients une expérience authentique et enrichissante, tout en soutenant les artisans 
+           locaux et en préservant les techniques artisanales.
+        </p>
+
+        <div class="icon-box" data-aos="fade-up" data-aos-delay="300">
+          <div class="icon"><i class="bi bi-binoculars"></i></div>
+          <h4 class="title"><a href="">TOUJOURS A LA RECHERCHE DE MEILLEURS PROPOSITIONS</a></h4>
+          <p class="description">Chaque produit de notre boutique est méticuleusement conçu avec un souci du détail,
+             et nous nous engageons à explorer en permanence de nouvelles techniques et modèles pour offrir des créations toujours innovantes et exceptionnelles</p>
+        </div>
+
+      </div>
+
+      <div class="col-lg-6 background order-lg-2 order-1" data-aos="fade-left" data-aos-delay="100"></div>
+    </div>
+  </div>
+</section><!-- End About Section -->
+
+  <main id="main">
+    
+     <!-- ======= Call To Action Section ======= -->
+     <section id="call-to-action">
+      <div class="container">
+        <div class="row" data-aos="zoom-in">
+          <div class="col-lg-3 cta-btn-container text-center">
+            <a class="cta-btn align-middle" href="#">BOUTIQUE</a>
+          </div>
+        </div>
+      </div>
+    </section><!-- End Call To Action Section -->
+ <!-- ======= Services Section ======= -->
+    <section id="services">
+      <div class="container" data-aos="fade-up">
+        <div class="section-header">
+          <h3 class="section-title">Nos valeurs</h3>
+          <p class="section-description">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque</p>
+        </div>
+        <div class="row">
+          <div class="col-lg-4 col-md-6" data-aos="zoom-in">
+            <div class="box">
+              <h4 class="title"><a href="">Authenticité</a></h4>
+              <p class="description">Garantir que les bijoux proposés sont véritablement d'origine africaine et qu'ils respectent les traditions .</p>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6" data-aos="zoom-in">
+            <div class="box">
+              <h4 class="title"><a href="">Innovation</a></h4>
+              <p class="description"> Incorporer des designs modernes tout en respectant les traditions africaines, et utiliser les technologies de commerce électronique pour améliorer l'expérience client.</p>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6" data-aos="zoom-in">
+            <div class="box">
+              <h4 class="title"><a href="">Qualité</a></h4>
+              <p class="description"> Offrir des bijoux fabriqués avec des matériaux de haute qualité et un savoir-faire exceptionnel.</p>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6" data-aos="zoom-in">
+            <div class="box">
+              <h4 class="title"><a href="">Éthique</a></h4>
+              <p class="description">S'assurer que les bijoux sont produits de manière éthique, en respectant les droits des travailleurs et en soutenant des pratiques de commerce équitable.</p>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6" data-aos="zoom-in">
+            <div class="box">
+              <h4 class="title"><a href="">Soutien à l'Artisanat Local</a></h4>
+              <p class="description"> Collaborer avec des artisans locaux pour promouvoir leur savoir-faire et soutenir les communautés locales.</p>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6" data-aos="zoom-in">
+            <div class="box">
+              <h4 class="title"><a href="">Respect de la Culture</a></h4>
+              <p class="description"> Valoriser et promouvoir les richesses culturelles africaines à travers les bijoux, en respectant les symboles et les significations culturels.</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section><!-- End Services Section -->
+
+
+    <!-- ======= Team Section ======= -->
+    <section id="team">
+      <div class="container" data-aos="fade-up">
+        <div class="section-header">
+          <h3 class="section-title">nos artisans</h3>
+          <p class="section-description">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque</p>
+        </div>
+        <div class="row">
+          <div class="col-lg-3 col-md-6">
+            <div class="member" data-aos="fade-up" data-aos-delay="100">
+              <div class="pic"><img src="static/assets/img/team-1.jpg" alt=""></div>
+              <h4>Walter White</h4>
+              <span>Chief Executive Officer</span>
+              <div class="social">
+                <a href=""><i class="bi bi-twitter"></i></a>
+                <a href=""><i class="bi bi-facebook"></i></a>
+                <a href=""><i class="bi bi-instagram"></i></a>
+                <a href=""><i class="bi bi-linkedin"></i></a>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-6">
+            <div class="member" data-aos="fade-up" data-aos-delay="200">
+              <div class="pic"><img src="static/assets/img/team-2.jpg" alt=""></div>
+              <h4>Sarah Jhinson</h4>
+              <span>Product Manager</span>
+              <div class="social">
+                <a href=""><i class="bi bi-twitter"></i></a>
+                <a href=""><i class="bi bi-facebook"></i></a>
+                <a href=""><i class="bi bi-instagram"></i></a>
+                <a href=""><i class="bi bi-linkedin"></i></a>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-6">
+            <div class="member" data-aos="fade-up" data-aos-delay="300">
+              <div class="pic"><img src="static/assets/img/team-3.jpg" alt=""></div>
+              <h4>William Anderson</h4>
+              <span>CTO</span>
+              <div class="social">
+                <a href=""><i class="bi bi-twitter"></i></a>
+                <a href=""><i class="bi bi-facebook"></i></a>
+                <a href=""><i class="bi bi-instagram"></i></a>
+                <a href=""><i class="bi bi-linkedin"></i></a>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-6">
+            <div class="member" data-aos="fade-up" data-aos-delay="400">
+              <div class="pic"><img src="static/assets/img/team-4.jpg" alt=""></div>
+              <h4>Amanda Jepson</h4>
+              <span>Accountant</span>
+              <div class="social">
+                <a href=""><i class="bi bi-twitter"></i></a>
+                <a href=""><i class="bi bi-facebook"></i></a>
+                <a href=""><i class="bi bi-instagram"></i></a>
+                <a href=""><i class="bi bi-linkedin"></i></a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section><!-- End Team Section -->
+
+    <!-- ======= Contact Section ======= -->
+    <section id="contact">
+      <div class="container">
+        <div class="section-header">
+          <h3 class="section-title">Contact</h3>
+          <p class="section-description"></p>
+        </div>
+      </div>
+
+      <!-- Uncomment below if you wan to use dynamic maps -->
+      <div class="container mt-5">
+        <div class="row justify-content-center">
+
+          <div class="col-lg-3 col-md-4">
+
+            <div class="info">
+              <div>
+                <i class="bi bi-geo-alt"></i>
+                <p>Cocody<br>Abidjan, cote d'ivoire</p>
+              </div>
+
+              <div>
+                <i class="bi bi-envelope"></i>
+                <p>adinkra@gmail.com</p>
+              </div>
+
+              <div>
+                <i class="bi bi-phone"></i>
+                <p>+225 000 000 000</p>
+              </div>
+            </div>
+
+            <div class="social-links">
+              <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
+              <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
+              <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></a>
+              <a href="#" class="linkedin"><i class="bi bi-twitter"></i></a>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+    </section><!-- End Contact Section -->
+
+  </main><!-- End #main -->
+
+  <!-- ======= Footer ======= -->
+  <footer id="footer">
+    <div class="footer-top">
+      <div class="container">
+
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="copyright">
+        &copy; AxelleBedi <strong></strong>. All Rights Reserved
+      </div>
+      <div class="credits">
+        Designed by <a href=></a>
+      </div>
+    </div>
+  </footer><!-- End Footer -->
+
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Vendor JS Files -->
+  <script src="static/assets/vendor/purecounter/purecounter_vanilla.js "></script>
+  <script src='static/assets/vendor/aos/aos.js'></script>
+  <script src='static/assets/vendor/bootstrap/js/bootstrap.bundle.min.js '></script>
+  <script src='static/assets/vendor/glightbox/js/glightbox.min.js'></script>
+  <script src='static/assets/vendor/isotope-layout/isotope.pkgd.min.js'></script>
+  <script src='static/assets/vendor/swiper/swiper-bundle.min.js'></script>
+  <script src='static/assets/vendor/php-email-form/validate.js'></script>
+
+  <!-- Template Main JS File -->
+  <script src="static/assets/js/main.js"></script>
+  <script>
+    let cartCount = 0;
+
+    const addToCartButtons = document.querySelectorAll('.add-to-cart');
+    const cartCountSpan = document.getElementById('cart-count');
+
+    addToCartButtons.forEach(button => {
+      button.addEventListener('click', function(event) {
+        event.preventDefault();
+        const product = {
+          id: this.getAttribute('data-id'),
+          image:this.getAttribute('data-image'),
+          name: this.getAttribute('data-name'),
+          price: parseFloat(this.getAttribute('data-price')),
+          quantity: 1
+        };
+
+        let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+        const existingItem = cartItems.find(item => item.id === product.id);
+
+        if (existingItem) {
+          existingItem.quantity += 1;
+        } else {
+          cartItems.push(product);
+        }
+
+        localStorage.setItem('cartItems', JSON.stringify(cartItems));
+        cartCount++;
+        cartCountSpan.textContent = cartCount;
+  ;
+      });
+    });
+
+    document.addEventListener('DOMContentLoaded', function() {
+      const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+      cartCountSpan.textContent = cartItems.reduce((total, item) => total + item.quantity, 0);
+    });
+  </script>
+</body>
+
+</html>
